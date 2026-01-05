@@ -46,13 +46,12 @@ func main() {
 	// 3. DESPERTAR DE LA MENTE (Psyche)
 	mind := psyche.NewCortex(nodes, painChannel)
 
-	// --- NUEVO: Intentar recordar vida pasada ---
+	//  Intentar recordar vida pasada
 	if err := mind.LoadBrain("brain_dump.json"); err == nil {
 		fmt.Println("💾 [MEMORIA] Recuerdos previos restaurados. Sé quién eres.")
 	} else {
 		fmt.Println("✨ [MEMORIA] No hay registros previos. Tabula rasa.")
 	}
-	// ---------------------------------------------
 
 	mind.StartConsciousness()
 
@@ -74,7 +73,6 @@ func main() {
 		}
 		input := scanner.Text()
 
-		// --- PARCHE DE SEGURIDAD ---
 		if len(strings.TrimSpace(input)) < 2 {
 			continue
 		}
@@ -130,7 +128,6 @@ func main() {
 			fmt.Printf("Nodos Operativos: %d/%d\n", alive, nodeCount)
 			fmt.Println("----------------------------")
 
-		// --- COMANDO NUEVO: REPARAR ---
 		case "reparar":
 			if len(args) < 2 {
 				fmt.Println("⚠️ Uso: reparar [ID-DEL-NODO] (Ej: reparar N-1)")
@@ -149,7 +146,6 @@ func main() {
 				fmt.Println("⚠️ Error: Nodo no encontrado.")
 			}
 
-		// --- COMANDO NUEVO: DISCULPARSE ---
 		case "disculparse":
 			success, msg := mind.Soothe()
 			if success {
@@ -159,7 +155,7 @@ func main() {
 			}
 
 		default:
-			// INTENTAMOS DARLE UNA ORDEN
+
 			complexity := 1.0
 			if len(args) > 1 {
 				if c, err := strconv.ParseFloat(args[1], 64); err == nil {
@@ -167,7 +163,6 @@ func main() {
 				}
 			}
 
-			// EL MOMENTO DE LA VERDAD
 			response := mind.ProcessRequest(command, complexity)
 			fmt.Printf(">> %s\n", response)
 		}

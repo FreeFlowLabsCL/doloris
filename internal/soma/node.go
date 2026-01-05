@@ -98,11 +98,11 @@ func (n *Node) processSignal(sig Signal) {
 	latency := time.Duration(100+(currentStress*5)) * time.Millisecond
 	time.Sleep(latency)
 
-	// 3. Daño Exponencial (Tu regla de oro)
+	// 3. Daño Exponencial (Mi regla de oro)
 	if currentStress > 50.0 {
 		excessStress := currentStress - 50.0
 
-		// FÓRMULA TUYA: Daño = (Exceso ^ 1.5) * 0.05
+		//  Daño = (Exceso ^ 1.5) * 0.05
 		damage := math.Pow(excessStress, 1.5) * 0.05
 
 		n.mu.Lock()
@@ -139,7 +139,7 @@ func (n *Node) processSignal(sig Signal) {
 		n.mu.Unlock()
 	}
 
-	// Si sobrevivió, enviamos confirmación (opcional)
+	// Si sobrevivió, enviamos confirmación
 	fmt.Printf("   -> [NODO %s] Tarea terminada. (Estrés: %.1f)\n", n.ID, currentStress)
 }
 

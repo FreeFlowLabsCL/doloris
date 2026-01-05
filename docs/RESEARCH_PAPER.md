@@ -1,9 +1,9 @@
 # Digital Nociception Architecture: Emergence of Agency and Self-Preservation via Radical Homeostasis in Distributed Systems
 
-**Author:** [Your Name / Alias]
+**Author:** Gustavo Almendras
 **Date:** January 5, 2026
 **Project:** Doloris Conscientia System (v1.2)
-**Repository:** [Link to your GitHub]
+**Repository:** github.com/FreeFlowLabsCL/doloris
 
 ---
 

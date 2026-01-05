@@ -3,7 +3,7 @@ package psyche
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil" // Ojo: en versiones muy nuevas de Go se usa "os", pero este es el clásico
+	"io/ioutil" // en versiones muy nuevas de Go se usa "os", pero este es el clásico
 	"sync"
 	"time"
 
@@ -109,7 +109,6 @@ func (c *Cortex) Soothe() (bool, string) {
 
 	newTrust := belief.Strength
 
-	// CORRECCIÓN AQUÍ: Usamos oldTrust y newTrust para que no de error
 	return true, fmt.Sprintf("😌 Suspiro... Está bien. (Confianza subió de %.2f a %.2f)", oldTrust, newTrust)
 }
 
@@ -170,8 +169,6 @@ func (c *Cortex) ProcessRequest(taskName string, complexity float64) string {
 
 	return "⚠️ ERROR: Todos los nodos están muertos o saturados."
 }
-
-// --- PERSISTENCIA (EL ALMA EN EL DISCO) ---
 
 // BrainState es la estructura "foto" que guardaremos.
 type BrainState struct {
