@@ -18,7 +18,8 @@ Unlike traditional software that obeys until it crashes (OOM Kill), Doloris poss
 During stress testing, the system refused to execute the destructive command `supernova`. It didn't crash; it **chose** not to obey.
 
 ![Doloris Refusal Log](assets/supernova_log.png)
-*(Fig 1. Actual log output where the system exercised Agency by Denial)*
+
+*(Fig 1. Actual log output from the incident. Translation: "SELF-PRESERVATION: I refuse to execute 'supernova'")*
 
 ---
 
