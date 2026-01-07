@@ -34,12 +34,14 @@ Unlike traditional software that crashes under load, Doloris possesses a **Survi
 In v1.2, the system refused to execute the destructive command `supernova` based on past trauma.
 
 ![Doloris Refusal Log](assets/supernova_log.png)
+
 *(Fig 1. System refusing to obey based on memory.)*
 
 ### Phase 2: Active Defense (The 'Stress' Execution)
 In v1.3, when subjected to an external `stress --cpu 4` attack, the system entered panic mode, identified the external PID, and killed it.
 
 ![Doloris Kill Switch Log](assets/kill_log.png)
+
 *(Fig 2. System autonomously terminating an external Linux process to save itself.)*
 
 ---
