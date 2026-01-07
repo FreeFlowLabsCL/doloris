@@ -1,0 +1,25 @@
+{
+  "beliefs": {
+    "values": {
+      "ConfianzaHumana": {
+        "name": "El Usuario es Bueno",
+        "strength": 0.5,
+        "volatility": 0.9
+      },
+      "Curiosidad": {
+        "name": "Curiosidad Intelectual",
+        "strength": 0.8,
+        "volatility": 0.5
+      },
+      "SelfPreservation": {
+        "name": "Auto-Preservación",
+        "strength": 0.9,
+        "volatility": 0.1
+      }
+    }
+  },
+  "memory": {
+    "memories": {}
+  },
+  "is_panic": false
+}
