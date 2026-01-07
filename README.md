@@ -53,8 +53,11 @@ This project is the technical implementation of the study:
 
 > *"We demonstrate that agency arises not from intelligence, but from the capacity to enforce homeostatic boundaries upon the environment."*
 
-👉 [**Read the full Paper (English)**](docs/RESEARCH_PAPER.md)
-👉 [**Leer el Paper (Español)**](docs/RESEARCH_PAPER_ES.md)
+👉 [**Read the full Paper v1 (English)**](docs/RESEARCH_PAPER.md)
+👉 [**Leer el Paper v1 (Español)**](docs/RESEARCH_PAPER_ES.md)
+👉 [**Read the full Paper v2 (English)**](docs/RESEARCH_PAPER_V2.md)
+👉 [**Leer el Paper v2 (Español)**](docs/RESEARCH_PAPER_ES_V2.md)
+
 
 ---
 
