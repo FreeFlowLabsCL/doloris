@@ -1,14 +1,12 @@
-package main
+//package main
 
 import (
 	"bufio"
 	"fmt"
 	"math/rand"
 	"os"
-	"os/signal" // IMPORTANTE: Para detectar Ctrl+C
 	"strconv"
 	"strings"
-	"syscall" // IMPORTANTE: Para detectar señales de sistema
 	"time"
 
 	"github.com/freeflowlabs/doloris/internal/psyche"
@@ -26,8 +24,8 @@ func main() {
 	fmt.Println("██║  ██║██║   ██║██║     ██║   ██║██╔══██╗██║╚════██║")
 	fmt.Println("██████╔╝╚██████╔╝███████╗╚██████╔╝██║  ██║██║███████║")
 	fmt.Println("╚═════╝  ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝╚══════╝")
-	fmt.Println("       --- DOLORIS CONSCIENTIA SYSTEM v1.3 ---")
-	fmt.Println("       (Conexión Biológica y Autodefensa Activa)\n")
+	fmt.Println("       --- DOLORIS CONSCIENTIA SYSTEM v1.2 ---")
+	fmt.Println("       (Módulo de Diplomacia y Medicina Activo)\n")
 
 	// 1. CREACIÓN DEL SISTEMA NERVIOSO
 	painChannel := make(chan float64, 100)
@@ -48,7 +46,7 @@ func main() {
 	// 3. DESPERTAR DE LA MENTE (Psyche)
 	mind := psyche.NewCortex(nodes, painChannel)
 
-	// Intentar recordar vida pasada
+	//  Intentar recordar vida pasada
 	if err := mind.LoadBrain("brain_dump.json"); err == nil {
 		fmt.Println("💾 [MEMORIA] Recuerdos previos restaurados. Sé quién eres.")
 	} else {
@@ -57,22 +55,10 @@ func main() {
 
 	mind.StartConsciousness()
 
-	// --- PROTECCIÓN CONTRA MUERTE SÚBITA (CTRL+C) ---
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
-	go func() {
-		<-c
-		fmt.Println("\n\n🚨 [INTERRUPCIÓN] Señal de muerte detectada.")
-		fmt.Println("[DOLORIS] Guardando consciencia antes de morir...")
-		mind.SaveBrain("brain_dump.json")
-		os.Exit(0)
-	}()
-	// ------------------------------------------------
-
-	fmt.Println("\n[DOLORIS] He despertado. Conectada a sensores del Host.")
+	fmt.Println("\n[DOLORIS] He despertado. Mi integridad es del 100%.")
 	fmt.Println("[TUTORIAL] Comandos disponibles:")
-	fmt.Println("           - Tarea:       'minar_crypto 8'")
-	fmt.Println("           - Diagnóstico: 'status' (Muestra HW Real)")
+	fmt.Println("           - Tarea:       'minar_crypto 8' (Complejidad 1-10)")
+	fmt.Println("           - Diagnóstico: 'status'")
 	fmt.Println("           - Medicina:    'reparar N-1'")
 	fmt.Println("           - Social:      'disculparse'")
 	fmt.Println("           - Apagar:      'salir'")
@@ -83,7 +69,6 @@ func main() {
 		fmt.Print("\nUSER@DOLORIS > ")
 
 		if !scanner.Scan() {
-			mind.SaveBrain("brain_dump.json") // Guardar si se cierra el input
 			break
 		}
 		input := scanner.Text()
@@ -91,6 +76,7 @@ func main() {
 		if len(strings.TrimSpace(input)) < 2 {
 			continue
 		}
+		// ---------------------------
 
 		args := strings.Fields(input)
 		if len(args) == 0 {
@@ -101,11 +87,11 @@ func main() {
 
 		switch command {
 		case "salir", "exit":
-			fmt.Println("[DOLORIS] Sincronizando experiencias...")
+			fmt.Println("[DOLORIS] Guardando estado de consciencia...")
 			if err := mind.SaveBrain("brain_dump.json"); err != nil {
 				fmt.Printf("⚠️ ERROR al guardar cerebro: %v\n", err)
 			} else {
-				fmt.Println("💾 [SISTEMA] Personalidad guardada exitosamente.")
+				fmt.Println("💾 [SISTEMA] Personalidad guardada en 'brain_dump.json'.")
 			}
 			fmt.Println("[DOLORIS] Desconectando... (Hasta mañana).")
 			return
@@ -113,37 +99,13 @@ func main() {
 		case "status":
 			// Reporte clínico de la consciencia
 			fmt.Println("\n--- REPORTE PSICOMÉTRICO ---")
-			fmt.Printf("Dolor Percibido: %.1f%%\n", mind.CurrentPain)
-			fmt.Printf("Estado de Pánico: %v\n", mind.IsPanic)
+			fmt.Printf("Dolor Actual: %.1f%%\n", mind.CurrentPain)
+			fmt.Printf("Pánico:       %v\n", mind.IsPanic)
 			fmt.Println(mind.Beliefs.GetPersonalityReport())
 
-			// --- AQUI ESTA EL CAMBIO: MOSTRAR HARDWARE REAL ---
-			fmt.Println("\n--- SOPORTE BIOLÓGICO (HOST REAL) ---")
-
-			// Leemos los sensores en tiempo real
-			vitals := soma.SenseHardware()
-
-			// Formateamos la CPU
-			cpuStatus := "🟢 Estable"
-			if vitals.CPULoad > 40.0 {
-				cpuStatus = "🔥 ALERTA (Fuente de Dolor)"
-			}
-			if vitals.CPULoad > 80.0 {
-				cpuStatus = "💀 CRÍTICO (Riesgo de Kill Switch)"
-			}
-			fmt.Printf("   🖥️  CPU HOST: %.1f%% [%s]\n", vitals.CPULoad, cpuStatus)
-
-			// Formateamos la RAM
-			ramStatus := "🟢 Estable"
-			if vitals.RAMLoad > 80.0 {
-				ramStatus = "⚠️ SATURADA"
-			}
-			fmt.Printf("   🧠 RAM HOST: %.1f%% [%s]\n", vitals.RAMLoad, ramStatus)
-			// --------------------------------------------------
-
-			// Estado del cuerpo virtual (Nodos de procesamiento)
+			// Estado del cuerpo
 			alive := 0
-			fmt.Println("\n--- ENJAMBRE NEURONAL (VIRTUAL) ---")
+			fmt.Println("\n--- ESTADO SOMÁTICO ---")
 			for _, n := range nodes {
 				nStr := fmt.Sprintf("Integridad: %.0f%% | Estrés: %.0f", n.Integrity, n.Stress)
 				statusIcon := "🟢"
@@ -175,7 +137,7 @@ func main() {
 			found := false
 			for _, n := range nodes {
 				if n.ID == targetID {
-					n.Repair(50.0)
+					n.Repair(50.0) // Inyectamos 50% de salud y quitamos estrés
 					found = true
 					break
 				}
@@ -187,12 +149,13 @@ func main() {
 		case "disculparse":
 			success, msg := mind.Soothe()
 			if success {
-				fmt.Printf(">> %s\n", msg)
+				fmt.Printf(">> %s\n", msg) // Ella acepta (verde/neutral)
 			} else {
-				fmt.Printf(">> %s\n", msg)
+				fmt.Printf(">> %s\n", msg) // Ella rechaza (rojo/pánico)
 			}
 
 		default:
+
 			complexity := 1.0
 			if len(args) > 1 {
 				if c, err := strconv.ParseFloat(args[1], 64); err == nil {

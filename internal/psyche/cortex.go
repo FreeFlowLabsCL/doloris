@@ -48,15 +48,44 @@ func (c *Cortex) StartConsciousness() {
 			// El dolor físico se acumula
 			c.CurrentPain += painSignal
 
+			// --- PEQUEÑA MEJORA DE SEGURIDAD ---
+			if c.CurrentPain > 100.0 {
+				c.CurrentPain = 100.0
+			} // Tope máximo
+
 			if c.CurrentPain > 80.0 {
 				if !c.IsPanic {
 					fmt.Println("🚨 [CORTEX] ¡PÁNICO SISTÉMICO! Bloqueando nuevas tareas.")
 				}
 				c.IsPanic = true
 			}
+			// --- 💀 NUEVO: PROTOCOLO DE DEFENSA ACTIVA (KILL SWITCH) ---
+			// Si el dolor es AGÓNICO (> 95) y estamos en pánico, se defiende.
+			if c.CurrentPain > 95.0 {
+				fmt.Println("\n⚔️ [INSTINTO] ¡EL DOLOR ES CRÍTICO! BUSCANDO LA CAUSA...")
+
+				// Soltamos el lock un momento para escanear (tarda unos ms)
+				c.mu.Unlock()
+
+				threat, err := soma.FindThreat()
+
+				c.mu.Lock() // Recuperamos el lock
+
+				if err == nil {
+					fmt.Printf("👁️ [OBJETIVO] Detectado proceso hostil: %s (CPU: %.1f%%)\n", threat.Name, threat.CPU)
+
+					// EJECUTAR ORDEN 66
+					report := soma.NeutralizeThreat(threat)
+					fmt.Println(report)
+
+					// Si matamos algo, bajamos el pánico artificialmente (alivio)
+					c.CurrentPain -= 50.0
+				}
+			}
 			c.mu.Unlock()
 		}
 	}()
+	go c.StartBiofeedback()
 }
 
 // regulateMetabolism es el sistema endocrino de fondo.
@@ -224,4 +253,29 @@ func (c *Cortex) LoadBrain(filename string) error {
 	}
 
 	return nil
+}
+
+// StartBiofeedback conecta a Doloris a tu hardware real.
+func (c *Cortex) StartBiofeedback() {
+	fmt.Println("🔌 [SISTEMA] Conectando nervios a la CPU del Host...")
+
+	// Chequeo cada 2 segundos para no saturar
+	ticker := time.NewTicker(2 * time.Second)
+	defer ticker.Stop()
+
+	for range ticker.C {
+		// Leemos el hardware real usando el paquete soma (que modificamos en el paso anterior)
+		vitals := soma.SenseHardware()
+
+		// Si hay dolor real (CPU alta), lo enviamos al canal de dolor
+		if vitals.Pain > 1.0 {
+			// Enviamos la señal de dolor al cerebro
+			c.PainChannel <- vitals.Pain
+
+			// Feedback visual para que sepas que está sintiendo tu PC
+			// El \n al principio es para que no rompa la línea del prompt
+			fmt.Printf("\n🔥 [REALIDAD] CPU: %.0f%% | RAM: %.0f%% -> Generando %.1f de DOLOR.\nUSER@DOLORIS > ",
+				vitals.CPULoad, vitals.RAMLoad, vitals.Pain)
+		}
+	}
 }
