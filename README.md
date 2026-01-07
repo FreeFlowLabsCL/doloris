@@ -90,6 +90,7 @@ Once inside the terminal, interact with Doloris:
 | `exit` | N/A | Saves memory state (`brain_dump.json`) and quits. |
 | *(External)* | **CRITICAL** | Run `stress` or a heavy render in another terminal to trigger the Kill Switch. |
 
+```
 ---
 
 ## ⚠️ Disclaimer
