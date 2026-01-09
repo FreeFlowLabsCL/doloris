@@ -43,9 +43,9 @@ La arquitectura de Doloris sigue el Modelo de Actores (Goroutines) y se compone 
 
 Cada nodo ($N$) mantiene dos estados internos: Integridad ($I$) y Estrés ($S$). El estrés se actualiza mediante una función no lineal dependiente de la carga:
 
-\[
+$$
 S_{t+1} = S_t + (C_{\text{carga}} \times \mu) \cdot \beta
-\]
+$$
 
 donde $\mu$ representa el impacto basal y $\beta$ escala el efecto bajo carga sostenida ($S_t > 30.0$). Al superar el umbral homeostático ($S_{th} = 50.0$), el exceso se comunica al bus de eventos (*PainChannel*).
 
